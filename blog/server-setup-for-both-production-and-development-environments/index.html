@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Server Setup for both production and development environments - Sobiwi Blog</title>
+  <meta name="author" content="Sobiwi">
+
+  
+  <meta name="description" content="Introduction As decided, we are going to use Ruby on Rails, a MVC web framework written in Ruby language. The main development environment will be a &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://sobiwi.peterwongpp.com/blog/server-setup-for-both-production-and-development-environments">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Sobiwi Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-28555042-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Sobiwi Blog</a></h1>
+  
+    <h2>A wiki-based bible with social networking features for sharing your feelings and knowledges among your friends, or christians all over the world!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:sobiwi.peterwongpp.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/schedule">Schedule</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Server Setup for Both Production and Development Environments</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-11T00:00:00+08:00" pubdate data-updated="true">Dec 11<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>Introduction</h2>
+
+<p>As decided, we are going to use <a href="http://rubyonrails.org">Ruby on Rails</a>, a MVC web framework written in Ruby language.</p>
+
+<p>The main development environment will be a Mac OS X version 10.7, while the main production environment will be on <a href="http://heroku.com">Heroku</a>, a cloud application platform.</p>
+
+<p>On both the environments, we are going to use <a href="http://code.macournoyer.com/thin">Thin</a> as the web server, and use the MySQL database with mysql2 gem as an adapter for rails.</p>
+
+<p>It should be noted that the MySQL database on the production environment is a fault tolerant database-as-a-service in the cloud. The service is named <a href="http://cleardb.com">ClearDB</a>. There is an add-on on heroku and a free service is choosable although it is in a lower power: 5MB storage, 10 Connections, Low I/O Performance and Daily Backups.</p>
+
+<p>As in the current state, we are on developing or testing state, 1 dyno in heroku with the free add-on of ClearDB should be enough.</p>
+
+<p>Now, back to the code.</p>
+
+<!-- more -->
+
+
+<h2>Code</h2>
+
+<p>First, add the following to the Gemfile and then run <code>bundle install</code>:</p>
+
+<figure class='code'><figcaption><span>Gemfile</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># Original gems for a rails 3 app:</span>
+</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;rails&#39;</span><span class="p">,</span> <span class="s1">&#39;3.1.3&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">group</span> <span class="ss">:assets</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">gem</span> <span class="s1">&#39;sass-rails&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt; 3.1.5&#39;</span>
+</span><span class='line'>  <span class="n">gem</span> <span class="s1">&#39;coffee-rails&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt; 3.1.1&#39;</span>
+</span><span class='line'>  <span class="n">gem</span> <span class="s1">&#39;uglifier&#39;</span><span class="p">,</span> <span class="s1">&#39;&gt;= 1.0.3&#39;</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;jquery-rails&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Newly added gems:</span>
+</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;thin&#39;</span> <span class="c1"># http://code.macournoyer.com/thin</span>
+</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;mysql2&#39;</span>
+</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;foreman&#39;</span> <span class="c1"># https://github.com/ddollar/foreman</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, create a Procfile in the root of the application:</p>
+
+<figure class='code'><figcaption><span>Procfile</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>web:  bundle exec rails server thin -p $PORT
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Finally to start up the web process, run the following command:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>foreman start
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Explanations</h2>
+
+<p>As we discussed above, the thin is the web server and the mysql2 is the database adapter for rails.</p>
+
+<p>We are going to use rails 3.1. The minor version might be updated for more functionality support or security issues. Rails 3.1 comes with Asset Pipeline which makes CSS and Javascript a first-class citizen in Rails. Those gems in the asset group are for the asset pipeline. And the jquery-rails gem is to use jQuery as the default Javascript library to be used in the project.</p>
+
+<p>Finally, the foreman is a gem for managing Procfile-based applications. It automatically starts up the processes written in a Procfile in a certain format. Heroku supports Procfile and thus it is convenient to manage the processes required by the application with the help of Procfile.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Sobiwi</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-11T00:00:00+08:00" pubdate data-updated="true">Dec 11<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/news/'>News</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://sobiwi.peterwongpp.com/blog/server-setup-for-both-production-and-development-environments/" data-via="" data-counturl="http://sobiwi.peterwongpp.com/blog/server-setup-for-both-production-and-development-environments/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/changing-direction/" title="Previous Post: Changing Direction">&laquo; Changing Direction</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/setup-the-test-environment/" title="next Post: Setup the Test Environment">Setup the Test Environment &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/newly-updates/">Newly Updates</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/setup-cucumber/">Setup Cucumber</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/user-authentication/">User Authentication</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/setup-the-test-environment/">Setup the Test Environment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/server-setup-for-both-production-and-development-environments/">Server Setup for both production and development environments</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Sobiwi -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

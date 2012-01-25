@@ -9,7 +9,7 @@
   <meta name="author" content="Sobiwi">
 
   
-  <meta name="description" content=" Blog Archives Recent Posts ">
+  <meta name="description" content="After the interim presentation, I have been working on the wiki module which is for handling user contributed knowledges (has no any solid relation &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,7 +67,9 @@
 </form>
   
 <ul class="main-navigation">
+  <li><a href="/about">About</a></li>
   <li><a href="/">Blog</a></li>
+  <li><a href="/schedule">Schedule</a></li>
   <li><a href="/blog/archives">Archives</a></li>
 </ul>
 
@@ -77,7 +79,477 @@
       <div class="blog-index">
   
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/newly-updates/">Newly Updates</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-24T00:00:00+08:00" pubdate data-updated="true">Jan 24<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>After the interim presentation, I have been working on the wiki module which is for handling user contributed knowledges (has no any solid relation to the Wikipedia).</p>
+
+<p>By the way, I am happy that the schedule was quite well and I actually have done 50% of the project! It is encouraging!</p>
+
+<p>Back to the wiki module. What I have done in these two weeks are mainly on the timeline. The timeline is a series of notes created by the user himself as well as his friends (users he is following), ordered by the creation time.</p>
+
+<p>So now it can be listed on the user homepage.</p>
+
+<p>The coming tasks are:</p>
+
+<ol>
+<li>to add more note types support. Now for simplicity we just added two types: share of verse(s) and article on verse(s).</li>
+<li>to build web interface for the users to manage their notes.</li>
+</ol>
+
+
+<p>However, it is unexpected that there are so many spams on this site! So I am planning to move out. This would take some time, but I am pretty sure it is worth doing.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/setup-cucumber/">Setup Cucumber</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-25T00:00:00+08:00" pubdate data-updated="true">Dec 25<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This post will show how to add cucumber (<a href="http://cukes.info" title="Cucumber">http://cukes.info</a>) support for acceptance testing. This is in addition to the previous post <a href="/blog/setup-the-test-environment">Setup the Test Environment</a>.</p>
+
+<p>We are going to install cucumber, as well as adding support for spork and guard in order to load cucumber features faster.</p>
+
+<p>Finally, don&#8217;t forget the simplecov. It supports both rspec and cucumber :)</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/setup-cucumber/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/user-authentication/">User Authentication</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-16T00:00:00+08:00" pubdate data-updated="true">Dec 16<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>There are a bunch of well developed user authentication gems available for rails. One of them is <a href="http://www.omniauth.org">OmniAuth</a>.</p>
+
+<p>Starting from version 1.x, OmniAuth separated every strategies into separated gems. OmniAuth integrated many different authentication providers, such as Facebook, Twitter, OpenId, in order to provide a standardized interface.</p>
+
+<p>Each provider is a so-called strategy. Recently there is a omniauth-identity gem to due with the traditional username password authentication instead of using external providers.</p>
+
+<p>In short, making use of OmniAuth, we could provide username password authentication with the omniauth-identity, while having an advantage of integrate with other external providers relatively easier.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/user-authentication/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/setup-the-test-environment/">Setup the Test Environment</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-12T00:00:00+08:00" pubdate data-updated="true">Dec 12<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>There are some gems for specific parts of testing.</p>
+
+<p><a href="http://github.com/thoughtbot/factory_girl" title="FactoryGirl">factory_girl</a> - for generating fixtures</p>
+
+<p><a href="http://www.relishapp.com/rspec" title="RSpec 2">rspec2</a> - for doing unit test, integration test, etc</p>
+
+<p><a href="http://github.com/jnicklas/capybara" title="Capybara">capabara</a> - for mimicking user&#8217;s behaviour in order to do user acceptance test and improviding the integration test</p>
+
+<p><a href="http://github.com/sporkrb/spork" title="Spork">spork</a> - to fork a test environment before each run of the tests, for firing test cases much faster than the traditional way which loads the entire rails test environment before you could run the test cases</p>
+
+<p><a href="http://github.com/guard/guard" title="Guard">guard</a> - for handling events on file modifications. It is configured that whenever a source code or a test case is updated, the corresponding test cases would be run automatically. Together with spork, test cases would be automatically run in a fast pace whenever a source code or a test case is updated so that we could get the test result in real time</p>
+
+<p><a href="http://github.com/colszowka/simplecov" title="SimpleCov">simplecov</a> - for code coverage report generation</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/setup-the-test-environment/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/server-setup-for-both-production-and-development-environments/">Server Setup for Both Production and Development Environments</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-11T00:00:00+08:00" pubdate data-updated="true">Dec 11<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Introduction</h2>
+
+<p>As decided, we are going to use <a href="http://rubyonrails.org">Ruby on Rails</a>, a MVC web framework written in Ruby language.</p>
+
+<p>The main development environment will be a Mac OS X version 10.7, while the main production environment will be on <a href="http://heroku.com">Heroku</a>, a cloud application platform.</p>
+
+<p>On both the environments, we are going to use <a href="http://code.macournoyer.com/thin">Thin</a> as the web server, and use the MySQL database with mysql2 gem as an adapter for rails.</p>
+
+<p>It should be noted that the MySQL database on the production environment is a fault tolerant database-as-a-service in the cloud. The service is named <a href="http://cleardb.com">ClearDB</a>. There is an add-on on heroku and a free service is choosable although it is in a lower power: 5MB storage, 10 Connections, Low I/O Performance and Daily Backups.</p>
+
+<p>As in the current state, we are on developing or testing state, 1 dyno in heroku with the free add-on of ClearDB should be enough.</p>
+
+<p>Now, back to the code.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/server-setup-for-both-production-and-development-environments/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/changing-direction/">Changing Direction</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-03T00:00:00+08:00" pubdate data-updated="true">Dec 3<span>rd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>These few weeks doing less actual coding work. Instead, much more on thinking.</p>
+
+<p>After the recent meeting with Dr. Lau, the supervisor, new directions are coming up.</p>
+
+<p>Bible wiki, is the original main idea of the project. However, social, bible and wiki are just all tools. Why do we need such a bible wiki? Is the bible wiki useful?</p>
+
+<p>For example, I was doubting if notes could be added to the verses only, or to verses, chapters, books, testaments, or even different versions of bibles. The current implementation is the later one, which is able to add things to every thing in a bible! However, is that really useful? Now I am planning to change. Instead of having 30k records of verses, belonging to different chapters, belongings to different books, then testaments and finally one bible, using a compound key of [bible, book name, chapter, verser] should be better! It may be kind of denormalization, but this make the queries a lot simpler.</p>
+
+<p>It&#8217;s better to do more research than writing notes here :) See you later</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/recent-updates-again/">Recent Updates Again</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-25T00:00:00+08:00" pubdate data-updated="true">Oct 25<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Reading week and mid-term examinations are really time killer :) Finally we are back to the development now.</p>
+
+<p>Before the recent updates, I would like to thank Roy Huesman for his comment on the FYP homepage. It reminds me that there are really someone viewing the site! I admit that the theme I created before is actually functionally-incomplete. Instead of completing the functionalities and beautify the layout, I decided to use an open source theme.</p>
+
+<p>Now the recent updates of the application.</p>
+
+<p>Apart from the layout updates, we have implemented the test environment. Some test have been set up and passed. More test cases will be written when the features are being implemented later.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/recent-updates/">Recent Updates</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-09T00:00:00+08:00" pubdate data-updated="true">Oct 9<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>These days were busying on the actual coding work of the application.</p>
+
+<p>The application has been pushed to Heroku and is running with PostreSQL database in production server (SQLite in development and test environments).</p>
+
+<p>In the last news, we mentioned that the bibles were imported already. Actually after that we have done some minor updates on the process, so that the meta data together with each bible are more useful and the import speed is a lot faster.</p>
+
+<p>In the recent updates, we have implemented a basic front end showing the bible contents. So it is now a viewable, clean and clear online bible with multi-lingual supports! (We are going to provide English and Traditional Chinese versions only, although adding more locales are as easy as simply translating a static file)</p>
+
+<p>A basic membership system is built also. Any visitor can register as a member, with only a username and a password. After he is signed in, we will record down his locale and the bible version he is reading so that when he sign in next time, we could show the most suitable content to him.</p>
+
+<p>Now, we are writing automated tests on the parts we have done currently and will refactor the code if needed. By this way, we have tests to confirm that we do not break the current functionalities in the development, and we have clean code to work on.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/bibles-imported/">Bibles Imported!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-03T00:00:00+08:00" pubdate data-updated="true">Oct 3<span>rd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Yesterday night, we have finally uploaded the whole bible content into our application, including a Traditional Chinese version (和合本) and an English version (KJV), which used us about 2211460 seconds (about 36 ~ 37 minutes) for converting the downloaded format into a self-defined format and importing the bible in self-defined format into our database using ActiveRecord.</p>
+
+<p>We parse the self-defined format line by line. Each line represents an object (a row in the database). We create the object line by line and that&#8217;s why the slowness of the import.</p>
+
+<p>The good news is we now have a self-defined format of the representation of bible in plain text. Importing more versions of bibles would be as easy as a cake.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/database-design/">Database Design</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-01T00:00:00+08:00" pubdate data-updated="true">Oct 1<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This week the database structure design has been finished.</p>
+
+<p>The tables can be separated mainly into 3 parts: bible content part, social networking part and the wiki part.</p>
+
+<p>The bible content part is the table for storing localized contents of bibles. As we all know, there are so many versions of bibles translated into hundreds of languages. We would like to add more versions of bibles in the future easily, so the bibles are stored into the database instead of statically.</p>
+
+<p>The social networking part stores the users data and the virtual churches. User-user and user-virtual-church relationships are the basic building blocks in this part.</p>
+
+<p>The wiki part stores the users&#8217; contributions, such as photos they uploaded, notes they wrote. Every thing created by the user could be set to private, friend-only (including other people in the same virtual churches), and public.</p>
+
+<p>More tables can be added in the future if needed easily as the database is designed very clean and simple.</p>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -88,6 +560,26 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/newly-updates/">Newly Updates</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/setup-cucumber/">Setup Cucumber</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/user-authentication/">User Authentication</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/setup-the-test-environment/">Setup the Test Environment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/server-setup-for-both-production-and-development-environments/">Server Setup for both production and development environments</a>
+      </li>
     
   </ul>
 </section>

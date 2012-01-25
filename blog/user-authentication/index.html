@@ -1,0 +1,468 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>User Authentication - Sobiwi Blog</title>
+  <meta name="author" content="Sobiwi">
+
+  
+  <meta name="description" content="There are a bunch of well developed user authentication gems available for rails. One of them is OmniAuth. Starting from version 1.x, OmniAuth &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://sobiwi.peterwongpp.com/blog/user-authentication">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Sobiwi Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-28555042-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Sobiwi Blog</a></h1>
+  
+    <h2>A wiki-based bible with social networking features for sharing your feelings and knowledges among your friends, or christians all over the world!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:sobiwi.peterwongpp.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/schedule">Schedule</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">User Authentication</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-16T00:00:00+08:00" pubdate data-updated="true">Dec 16<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>There are a bunch of well developed user authentication gems available for rails. One of them is <a href="http://www.omniauth.org">OmniAuth</a>.</p>
+
+<p>Starting from version 1.x, OmniAuth separated every strategies into separated gems. OmniAuth integrated many different authentication providers, such as Facebook, Twitter, OpenId, in order to provide a standardized interface.</p>
+
+<p>Each provider is a so-called strategy. Recently there is a omniauth-identity gem to due with the traditional username password authentication instead of using external providers.</p>
+
+<p>In short, making use of OmniAuth, we could provide username password authentication with the omniauth-identity, while having an advantage of integrate with other external providers relatively easier.</p>
+
+<!-- more -->
+
+
+<h2>Code</h2>
+
+<p>I am going to follow the episode <a href="http://railscasts.com/episodes/304-omniauth-identity">#304 OmniAuth Identity</a> with little modifications to suit our need.</p>
+
+<h3>1) add the following to the Gemfile and run <code>bundle</code></h3>
+
+<figure class='code'><figcaption><span>Gemfile</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">gem</span> <span class="s1">&#39;bcrypt-ruby&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt; 3.0.0&#39;</span>
+</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;omniauth-identity&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>2) create a config/initializers/omniauth.rb file with the following content:</h3>
+
+<figure class='code'><figcaption><span>config/initializers/omniauth.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">middleware</span><span class="o">.</span><span class="n">use</span> <span class="no">OmniAuth</span><span class="o">::</span><span class="no">Builder</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">provider</span> <span class="ss">:identity</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>3) create the sessions_controller for handling sign in / out for omniauth</h3>
+
+<p>run the following command: <code>rails generate controller sessions</code></p>
+
+<p>edit the generated app/controllers/sessions_controller.rb file as:</p>
+
+<figure class='code'><figcaption><span>app/controllers/sessions_controller.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">SessionsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">new</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">create</span>
+</span><span class='line'>    <span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">from_omniauth</span><span class="p">(</span><span class="n">env</span><span class="o">[</span><span class="s2">&quot;omniauth.auth&quot;</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">session</span><span class="o">[</span><span class="ss">:user_id</span><span class="o">]</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">id</span>
+</span><span class='line'>    <span class="n">redirect_to</span> <span class="n">root_url</span><span class="p">,</span> <span class="n">notice</span><span class="p">:</span> <span class="s2">&quot;Signed in!&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">destroy</span>
+</span><span class='line'>    <span class="n">session</span><span class="o">[</span><span class="ss">:user_id</span><span class="o">]</span> <span class="o">=</span> <span class="kp">nil</span>
+</span><span class='line'>    <span class="n">redirect_to</span> <span class="n">root_url</span><span class="p">,</span> <span class="n">notice</span><span class="p">:</span> <span class="s2">&quot;Signed out!&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">failure</span>
+</span><span class='line'>    <span class="n">redirect_to</span> <span class="n">root_url</span><span class="p">,</span> <span class="n">alert</span><span class="p">:</span> <span class="s2">&quot;Authentication failed, please try again.&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now you could see there are something we do not have right now: User model and root_url</p>
+
+<h3>4) create the User model</h3>
+
+<p>by using the following command:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>rails generate model user provider:string uid:string display_name:string <span class="c"># any other fields you might want</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>followed by <code>rake db:migrate</code></p>
+
+<p>and then update the generated app/models/user.rb as:</p>
+
+<figure class='code'><figcaption><span>app/models/user.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">from_omniauth</span><span class="p">(</span><span class="n">auth</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">find_by_provider_and_uid</span><span class="p">(</span><span class="n">auth</span><span class="o">[</span><span class="s2">&quot;provider&quot;</span><span class="o">]</span><span class="p">,</span> <span class="n">auth</span><span class="o">[</span><span class="s2">&quot;uid&quot;</span><span class="o">]</span><span class="p">)</span> <span class="o">||</span> <span class="n">create_with_omniauth</span><span class="p">(</span><span class="n">auth</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">create_with_omniauth</span><span class="p">(</span><span class="n">auth</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">create!</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">user</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="n">auth</span><span class="o">[</span><span class="s2">&quot;provider&quot;</span><span class="o">]</span>
+</span><span class='line'>      <span class="n">user</span><span class="o">.</span><span class="n">uid</span> <span class="o">=</span> <span class="n">auth</span><span class="o">[</span><span class="s2">&quot;uid&quot;</span><span class="o">]</span>
+</span><span class='line'>      <span class="n">user</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">auth</span><span class="o">[</span><span class="s2">&quot;info&quot;</span><span class="o">][</span><span class="s2">&quot;name&quot;</span><span class="o">]</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now the User model part is ready. It&#8217;s time to the identity part. In omniauth-identity, there is another model for handling the authentication instead of the user model (of course you may map the model in the config&#8230;).</p>
+
+<h3>5) create the Identity model</h3>
+
+<p>by using the following command:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>rails generate model identity name:string email:string password_digest:string
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>followed by <code>rake db:migrate</code></p>
+
+<p>Now you need to update the generated app/models/identity.rb as:</p>
+
+<figure class='code'><figcaption><span>app/models/identity.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Identity</span> <span class="o">&lt;</span> <span class="no">OmniAuth</span><span class="o">::</span><span class="no">Identity</span><span class="o">::</span><span class="no">Models</span><span class="o">::</span><span class="no">ActiveRecord</span>
+</span><span class='line'>  <span class="c1"># anything else you want</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>6) add the following two paths to suitable position in your view file:</h3>
+
+<p>6.1) create identity path: /auth/identity/register<br/>
+6.2) login path: /auth/identity</p>
+
+<p>The above 2 links are linked to the default registration and login pages. However, these 2 default pages does not match our design as well as there are no error handling. So we need to provide validations to Identity model and also provide the registration and login pages.</p>
+
+<h3>7) insert validation rules to the identity model</h3>
+
+<figure class='code'><figcaption><span>app/models/identity.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">validates</span> <span class="ss">:name</span><span class="p">,</span> <span class="n">presence</span><span class="p">:</span> <span class="kp">true</span>
+</span><span class='line'><span class="n">validates</span> <span class="ss">:email</span><span class="p">,</span> <span class="n">uniqueness</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span><span class="sr"> /^[^@\s]+\@([-a-z0-9]+\.)+[a-z0-9]{2</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We do not need to add <code>presence: true</code> to the email validation as the format do not allow blank input.</p>
+
+<h3>8 ) points for the login form</h3>
+
+<p>I am not going to paste my full code in both the login form as well as the registration form as it would be too long.</p>
+
+<p>Instead, I write down the things we need to notice here.</p>
+
+<p>8.1) you should be using form_tag and must post to /auth/identity/callback<br/>
+8.2) these two fields should present: auth_key (for email) and password<br/>
+8.3) the above 2 keys should be in top level in params.</p>
+
+<p>For example <code>&lt;%= text_field_tag :auth_key %&gt;</code><br/>
+Instead of <code>&lt;%= text_field_tag :login[auth_key] %&gt;</code></p>
+
+<p>If you actually using form_for, You could do: <code>&lt;%= f.text_field :auth_key, name: "auth_key" %&gt;</code></p>
+
+<p>8.4) I would recommend to put the form inside the sessions#new view. This view file in the future will also provide other external providers&#8217; login.</p>
+
+<p>That&#8217;s all for login form :)</p>
+
+<h3>9) points for the registration form</h3>
+
+<p>9.1) you should create a identities_controller and using at least the new action. (no need to use create action as the registration form is actually passed to omniauth for the standardized approach).<br/>
+9.2) put the needed route into the routes.rb file. eg. <code>resources :identities, only: [:new]</code><br/>
+9.3) you should again be using form_tag and must post to /auth/identity/register<br/>
+9.4) by default, only the following fields will be handled: <code>name</code>, <code>email</code>, <code>password</code>, <code>password_confirmation</code>.<br/>
+<code>password</code> and <code>password_confirmation</code> must be handle, while <code>name</code> and <code>email</code> could be set in the configuration. To change <code>name</code>, <code>email</code> or to add more other fields, you should update the following line in the config/initializers/omniauth.rb as the next code block.<br/>
+9.5) you need also to make omniauth-identity to redirect back to the identities#new, see the next code block too.</p>
+
+<figure class='code'><figcaption><span>config/initializers/omniauth.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">provider</span> <span class="ss">:identity</span><span class="p">,</span> <span class="ss">:fields</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:email</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">on_failed_registration</span><span class="p">:</span> <span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">env</span><span class="o">|</span>
+</span><span class='line'>  <span class="no">IdentitiesController</span><span class="o">.</span><span class="n">action</span><span class="p">(</span><span class="ss">:new</span><span class="p">)</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>9.6) define the identities#new action as follow:</p>
+
+<figure class='code'><figcaption><span>app/controllers/identities_controller.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">new</span>
+</span><span class='line'>  <span class="vi">@identity</span> <span class="o">=</span> <span class="n">env</span><span class="o">[</span><span class="s1">&#39;omniauth.identity&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>10) add the required routes</h3>
+
+<figure class='code'><figcaption><span>config/routes.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">get</span> <span class="s1">&#39;/login&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;sessions#new&#39;</span><span class="p">,</span> <span class="n">as</span><span class="p">:</span> <span class="ss">:login</span>
+</span><span class='line'><span class="n">match</span> <span class="s1">&#39;/auth/:provider/callback&#39;</span><span class="p">,</span> <span class="n">to</span><span class="p">:</span> <span class="s1">&#39;sessions#create&#39;</span>
+</span><span class='line'><span class="n">match</span> <span class="s1">&#39;/auth/failure&#39;</span><span class="p">,</span> <span class="n">to</span><span class="p">:</span> <span class="s1">&#39;sessions#failure&#39;</span>
+</span><span class='line'><span class="n">match</span> <span class="s1">&#39;/logout&#39;</span><span class="p">,</span> <span class="n">to</span><span class="p">:</span> <span class="s1">&#39;sessions#destroy&#39;</span><span class="p">,</span> <span class="ss">:as</span> <span class="o">=&gt;</span> <span class="ss">:logout</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">resources</span> <span class="ss">:identities</span><span class="p">,</span> <span class="n">only</span><span class="p">:</span> <span class="o">[</span><span class="ss">:new</span><span class="o">]</span> <span class="c1"># as well as the route for the registration form</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>All things should be done :)</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Sobiwi</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-16T00:00:00+08:00" pubdate data-updated="true">Dec 16<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/news/'>News</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://sobiwi.peterwongpp.com/blog/user-authentication/" data-via="" data-counturl="http://sobiwi.peterwongpp.com/blog/user-authentication/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/setup-the-test-environment/" title="Previous Post: Setup the Test Environment">&laquo; Setup the Test Environment</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/setup-cucumber/" title="next Post: Setup Cucumber">Setup Cucumber &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/newly-updates/">Newly Updates</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/setup-cucumber/">Setup Cucumber</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/user-authentication/">User Authentication</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/setup-the-test-environment/">Setup the Test Environment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/server-setup-for-both-production-and-development-environments/">Server Setup for both production and development environments</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Sobiwi -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

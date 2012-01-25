@@ -1,11 +1,81 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
+        <loc>http://sobiwi.peterwongpp.com/blog/2011-09-15-thu/</loc>
+        <lastmod>2012-01-24T20:36:38+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://sobiwi.peterwongpp.com/blog/2011-09-21-wed/</loc>
+        <lastmod>2012-01-24T20:36:38+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://sobiwi.peterwongpp.com/blog/2011-09-23-fri/</loc>
+        <lastmod>2012-01-24T20:36:38+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://sobiwi.peterwongpp.com/blog/2011-09-24-sat/</loc>
+        <lastmod>2012-01-25T13:11:50+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://sobiwi.peterwongpp.com/blog/production-environment/</loc>
+        <lastmod>2012-01-25T13:13:13+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://sobiwi.peterwongpp.com/blog/database-design/</loc>
+        <lastmod>2012-01-24T20:36:38+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://sobiwi.peterwongpp.com/blog/bibles-imported/</loc>
+        <lastmod>2012-01-24T20:36:38+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://sobiwi.peterwongpp.com/blog/recent-updates/</loc>
+        <lastmod>2012-01-24T20:36:38+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://sobiwi.peterwongpp.com/blog/recent-updates-again/</loc>
+        <lastmod>2012-01-25T13:14:37+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://sobiwi.peterwongpp.com/blog/changing-direction/</loc>
+        <lastmod>2012-01-24T20:36:38+08:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://sobiwi.peterwongpp.com/blog/server-setup-for-both-production-and-development-environments/
+        </loc>
+        <lastmod>2012-01-25T13:32:20+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://sobiwi.peterwongpp.com/blog/setup-the-test-environment/</loc>
+        <lastmod>2012-01-25T13:30:24+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://sobiwi.peterwongpp.com/blog/user-authentication/</loc>
+        <lastmod>2012-01-25T13:36:39+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://sobiwi.peterwongpp.com/blog/setup-cucumber/</loc>
+        <lastmod>2012-01-25T13:39:38+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://sobiwi.peterwongpp.com/blog/newly-updates/</loc>
+        <lastmod>2012-01-25T13:41:12+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://sobiwi.peterwongpp.com/about/</loc>
+        <lastmod>2012-01-24T21:34:33+08:00</lastmod>
+    </url>
+    <url>
         <loc>http://sobiwi.peterwongpp.com/blog/archives/</loc>
-        <lastmod>2012-01-24T19:31:11+08:00</lastmod>
+        <lastmod>2012-01-25T13:41:12+08:00</lastmod>
     </url>
     <url>
         <loc>http://sobiwi.peterwongpp.com/</loc>
-        <lastmod>2012-01-24T19:31:11+08:00</lastmod>
+        <lastmod>2012-01-25T13:41:12+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://sobiwi.peterwongpp.com/schedule/</loc>
+        <lastmod>2012-01-24T22:49:35+08:00</lastmod>
     </url>
 </urlset>

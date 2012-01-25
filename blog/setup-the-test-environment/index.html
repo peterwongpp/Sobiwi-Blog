@@ -1,0 +1,405 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Setup the Test Environment - Sobiwi Blog</title>
+  <meta name="author" content="Sobiwi">
+
+  
+  <meta name="description" content="There are some gems for specific parts of testing. factory_girl - for generating fixtures rspec2 - for doing unit test, integration test, etc &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://sobiwi.peterwongpp.com/blog/setup-the-test-environment">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Sobiwi Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-28555042-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Sobiwi Blog</a></h1>
+  
+    <h2>A wiki-based bible with social networking features for sharing your feelings and knowledges among your friends, or christians all over the world!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:sobiwi.peterwongpp.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/about">About</a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/schedule">Schedule</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Setup the Test Environment</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-12T00:00:00+08:00" pubdate data-updated="true">Dec 12<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>There are some gems for specific parts of testing.</p>
+
+<p><a href="http://github.com/thoughtbot/factory_girl" title="FactoryGirl">factory_girl</a> - for generating fixtures</p>
+
+<p><a href="http://www.relishapp.com/rspec" title="RSpec 2">rspec2</a> - for doing unit test, integration test, etc</p>
+
+<p><a href="http://github.com/jnicklas/capybara" title="Capybara">capabara</a> - for mimicking user&#8217;s behaviour in order to do user acceptance test and improviding the integration test</p>
+
+<p><a href="http://github.com/sporkrb/spork" title="Spork">spork</a> - to fork a test environment before each run of the tests, for firing test cases much faster than the traditional way which loads the entire rails test environment before you could run the test cases</p>
+
+<p><a href="http://github.com/guard/guard" title="Guard">guard</a> - for handling events on file modifications. It is configured that whenever a source code or a test case is updated, the corresponding test cases would be run automatically. Together with spork, test cases would be automatically run in a fast pace whenever a source code or a test case is updated so that we could get the test result in real time</p>
+
+<p><a href="http://github.com/colszowka/simplecov" title="SimpleCov">simplecov</a> - for code coverage report generation</p>
+
+<!-- more -->
+
+
+<h2>Code</h2>
+
+<figure class='code'><figcaption><span>Gemfile</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>group :test, :development do
+</span><span class='line'>  gem &#39;rspec-rails&#39;, &#39;~&gt; 2.6&#39;
+</span><span class='line'>  gem &#39;factory_girl_rails&#39;
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>group :test do
+</span><span class='line'>  gem &#39;spork&#39;, &#39;~&gt; 0.9.0.rc&#39;
+</span><span class='line'>
+</span><span class='line'>  gem &#39;guard-rspec&#39;
+</span><span class='line'>  gem &#39;guard-spork&#39;
+</span><span class='line'>
+</span><span class='line'>  gem &#39;capybara&#39;
+</span><span class='line'>
+</span><span class='line'>  gem &#39;simplecov&#39;, :require =&gt; false
+</span><span class='line'>end
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>then run <code>bundle</code></p>
+
+<p>init rspec:</p>
+
+<figure class='code'><figcaption><span>console</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>rails generate rspec:install
+</span><span class='line'>&gt; create  .rspec
+</span><span class='line'>&gt; create  spec
+</span><span class='line'>&gt; create  spec/spec_helper.rb
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>setup spork:</p>
+
+<figure class='code'><figcaption><span>console</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>spork --bootstrap
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>after that, some instructions are inserted into spec/spec_helper.rb automatically. Update the spec/spec_helper.rb file according to the instructions.</p>
+
+<p>now, is time to guard rspec.</p>
+
+<figure class='code'><figcaption><span>console</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>guard init rspec
+</span><span class='line'>&gt; Writing new Guardfile to /Users/PeterWong/Projects/sobiwi/Guardfile
+</span><span class='line'>&gt; rspec guard added to Guardfile, feel free to edit it
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>then is to guard spork:</p>
+
+<figure class='code'><figcaption><span>console</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>guard init spork
+</span><span class='line'>&gt; spork guard added to Guardfile, feel free to edit it
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>now we need to update the Guardfile to move the newly appended <code>guard 'spork'</code> block to the top of the <code>guard 'rspec'</code> block.</p>
+
+<p>Also we need to do the following:</p>
+
+<figure class='code'><figcaption><span>Guardfile</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># change the following line</span>
+</span><span class='line'><span class="n">guard</span> <span class="s1">&#39;rspec&#39;</span><span class="p">,</span> <span class="ss">:version</span> <span class="o">=&gt;</span> <span class="mi">2</span> <span class="k">do</span>
+</span><span class='line'><span class="c1"># to</span>
+</span><span class='line'><span class="n">guard</span> <span class="s1">&#39;rspec&#39;</span><span class="p">,</span> <span class="ss">:version</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">:cli</span> <span class="o">=&gt;</span> <span class="s1">&#39;--drb&#39;</span> <span class="k">do</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>now guard is working and to run test cases in real time, run the command <code>guard</code>.</p>
+
+<p>to setup capybara, update:</p>
+
+<figure class='code'><figcaption><span>rails spec/spec_helper.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">ENV</span><span class="o">[</span><span class="s2">&quot;RAILS_ENV&quot;</span><span class="o">]</span> <span class="o">||=</span> <span class="s1">&#39;test&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s2">&quot;../../config/environment&quot;</span><span class="p">,</span> <span class="bp">__FILE__</span><span class="p">)</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;rspec/rails&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;rspec/autorun&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;capybara/rspec&#39;</span> <span class="c1"># add this new line</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>finally to automatically reload factory_girl fixtures, add the following line inside the <code>Spork.each_run</code> block in the spec/spec_helper.rb:</p>
+
+<figure class='code'><figcaption><span>spec/spec_helper.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">FactoryGirl</span><span class="o">.</span><span class="n">reload</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now things are all done. We could do TDD too :)</p>
+
+<p>Oh, forgot to setup the simeplecov. To set it up, insert the following line in the very beginning of the spec/spec_helper.rb file:</p>
+
+<figure class='code'><figcaption><span>spec/spec_helper.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;simplecov&#39;</span>
+</span><span class='line'><span class="o">.</span><span class="n">.</span><span class="o">.</span> <span class="c1"># rest of the original file content</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and then create a .simplecov file in the root of the project having the following content:</p>
+
+<figure class='code'><figcaption><span>.simplecov</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">SimpleCov</span><span class="o">.</span><span class="n">start</span> <span class="s1">&#39;rails&#39;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">add_filter</span> <span class="s1">&#39;spec&#39;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">add_group</span> <span class="s1">&#39;Mailers&#39;</span><span class="p">,</span> <span class="s1">&#39;app/mailers&#39;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It is to tell simplecov to ignore the code coverage of the spec directory (we do not test out test cases) and add a group named Mailers for the mailers in case we have mailers in use.</p>
+
+<p><code>SimpleCov.start 'rails'</code> will automatically group controllers, helpers, models, lib and plugins code and so those groups do not need to be added by ourself.</p>
+
+<p>One more note, to obtain the coverage report, guard cannot be used. Instead we should run rspec directly:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">rspec</span> <span class="o">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>to run all the spec to obtain the full coverage report (as the hits per line etc need to be calculated, we must ensure every test case is run once).</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Sobiwi</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-12T00:00:00+08:00" pubdate data-updated="true">Dec 12<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/news/'>News</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://sobiwi.peterwongpp.com/blog/setup-the-test-environment/" data-via="" data-counturl="http://sobiwi.peterwongpp.com/blog/setup-the-test-environment/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/server-setup-for-both-production-and-development-environments/" title="Previous Post: Server Setup for both production and development environments">&laquo; Server Setup for both production and development environments</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/user-authentication/" title="next Post: User Authentication">User Authentication &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/newly-updates/">Newly Updates</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/setup-cucumber/">Setup Cucumber</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/user-authentication/">User Authentication</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/setup-the-test-environment/">Setup the Test Environment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/server-setup-for-both-production-and-development-environments/">Server Setup for both production and development environments</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Sobiwi -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
