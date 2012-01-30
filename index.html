@@ -9,7 +9,7 @@
   <meta name="author" content="Sobiwi">
 
   
-  <meta name="description" content="After the interim presentation, I have been working on the wiki module which is for handling user contributed knowledges (has no any solid relation &hellip;">
+  <meta name="description" content="We are now implementing the Timeline - a time-ordered series of notes written by the user himself and the friends he is following. The screen shot &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +80,48 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/user-timeline/">User Timeline</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-30T14:00:00+08:00" pubdate data-updated="true">Jan 30<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class="right" src="/images/posts/user_timeline_demo.png" width="450" title="User Timeline Demo" alt="User Timeline Demo"></p>
+
+<p>We are now implementing the Timeline - a time-ordered series of notes written by the user himself and the friends he is following.</p>
+
+<p>The screen shot on the right hand side is an actual display from my testing account, which means the code is on the server and is running.</p>
+
+<p>However, the functionality of adding notes is not yet ready for public. We must try our best to deploy it ASAP!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -503,52 +545,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/database-design/">Database Design</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-10-01T00:00:00+08:00" pubdate data-updated="true">Oct 1<span>st</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This week the database structure design has been finished.</p>
-
-<p>The tables can be separated mainly into 3 parts: bible content part, social networking part and the wiki part.</p>
-
-<p>The bible content part is the table for storing localized contents of bibles. As we all know, there are so many versions of bibles translated into hundreds of languages. We would like to add more versions of bibles in the future easily, so the bibles are stored into the database instead of statically.</p>
-
-<p>The social networking part stores the users data and the virtual churches. User-user and user-virtual-church relationships are the basic building blocks in this part.</p>
-
-<p>The wiki part stores the users&#8217; contributions, such as photos they uploaded, notes they wrote. Every thing created by the user could be set to private, friend-only (including other people in the same virtual churches), and public.</p>
-
-<p>More tables can be added in the future if needed easily as the database is designed very clean and simple.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -587,6 +583,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/user-timeline/">user timeline</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/newly-updates/">Newly Updates</a>
       </li>
     
@@ -600,10 +600,6 @@
     
       <li class="post">
         <a href="/blog/setup-the-test-environment/">Setup the Test Environment</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/server-setup-for-both-production-and-development-environments/">Server Setup for both production and development environments</a>
       </li>
     
   </ul>

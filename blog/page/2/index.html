@@ -9,7 +9,7 @@
   <meta name="author" content="Sobiwi">
 
   
-  <meta name="description" content="As written in the schedule, 30th September 2011 is the due date to finalize the production for our web server. We originally planned to host our web &hellip;">
+  <meta name="description" content="This week the database structure design has been finished. The tables can be separated mainly into 3 parts: bible content part, social networking &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +80,52 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/database-design/">Database Design</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-01T00:00:00+08:00" pubdate data-updated="true">Oct 1<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This week the database structure design has been finished.</p>
+
+<p>The tables can be separated mainly into 3 parts: bible content part, social networking part and the wiki part.</p>
+
+<p>The bible content part is the table for storing localized contents of bibles. As we all know, there are so many versions of bibles translated into hundreds of languages. We would like to add more versions of bibles in the future easily, so the bibles are stored into the database instead of statically.</p>
+
+<p>The social networking part stores the users data and the virtual churches. User-user and user-virtual-church relationships are the basic building blocks in this part.</p>
+
+<p>The wiki part stores the users&#8217; contributions, such as photos they uploaded, notes they wrote. Every thing created by the user could be set to private, friend-only (including other people in the same virtual churches), and public.</p>
+
+<p>More tables can be added in the future if needed easily as the database is designed very clean and simple.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -317,6 +363,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/user-timeline/">user timeline</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/newly-updates/">Newly Updates</a>
       </li>
     
@@ -330,10 +380,6 @@
     
       <li class="post">
         <a href="/blog/setup-the-test-environment/">Setup the Test Environment</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/server-setup-for-both-production-and-development-environments/">Server Setup for both production and development environments</a>
       </li>
     
   </ul>

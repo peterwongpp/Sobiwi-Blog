@@ -4,7 +4,7 @@
   <title><![CDATA[Sobiwi Blog]]></title>
   <link href="http://sobiwi.peterwongpp.com/atom.xml" rel="self"/>
   <link href="http://sobiwi.peterwongpp.com/"/>
-  <updated>2012-01-26T13:51:54+08:00</updated>
+  <updated>2012-01-30T14:15:07+08:00</updated>
   <id>http://sobiwi.peterwongpp.com/</id>
   <author>
     <name><![CDATA[Sobiwi]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[user timeline]]></title>
+    <link href="http://sobiwi.peterwongpp.com/blog/user-timeline/"/>
+    <updated>2012-01-30T14:00:00+08:00</updated>
+    <id>http://sobiwi.peterwongpp.com/blog/user-timeline</id>
+    <content type="html"><![CDATA[<p><img class="right" src="http://sobiwi.peterwongpp.com/images/posts/user_timeline_demo.png" width="450" title="User Timeline Demo" alt="User Timeline Demo"></p>
+
+<p>We are now implementing the Timeline - a time-ordered series of notes written by the user himself and the friends he is following.</p>
+
+<p>The screen shot on the right hand side is an actual display from my testing account, which means the code is on the server and is running.</p>
+
+<p>However, the functionality of adding notes is not yet ready for public. We must try our best to deploy it ASAP!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Newly Updates]]></title>
