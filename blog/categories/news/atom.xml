@@ -4,7 +4,7 @@
   <title><![CDATA[Category: news | Sobiwi Blog]]></title>
   <link href="http://sobiwi.peterwongpp.com/blog/categories/news/atom.xml" rel="self"/>
   <link href="http://sobiwi.peterwongpp.com/"/>
-  <updated>2012-02-06T21:47:27+08:00</updated>
+  <updated>2012-02-06T21:56:39+08:00</updated>
   <id>http://sobiwi.peterwongpp.com/</id>
   <author>
     <name><![CDATA[Sobiwi]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[updated the schedule]]></title>
+    <link href="http://sobiwi.peterwongpp.com/blog/updated-the-schedule/"/>
+    <updated>2012-02-06T21:49:00+08:00</updated>
+    <id>http://sobiwi.peterwongpp.com/blog/updated-the-schedule</id>
+    <content type="html"><![CDATA[<p>We just updated the schedule page to indicate the stage we are at :)</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Refactor is Important]]></title>
