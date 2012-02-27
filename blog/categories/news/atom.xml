@@ -4,7 +4,7 @@
   <title><![CDATA[Category: news | Sobiwi Blog]]></title>
   <link href="http://sobiwi.peterwongpp.com/blog/categories/news/atom.xml" rel="self"/>
   <link href="http://sobiwi.peterwongpp.com/"/>
-  <updated>2012-02-06T21:56:39+08:00</updated>
+  <updated>2012-02-27T15:07:11+08:00</updated>
   <id>http://sobiwi.peterwongpp.com/</id>
   <author>
     <name><![CDATA[Sobiwi]]></name>
@@ -12,6 +12,24 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Javascript Selection is Ready]]></title>
+    <link href="http://sobiwi.peterwongpp.com/blog/javascript-selection-is-ready/"/>
+    <updated>2012-02-27T13:30:00+08:00</updated>
+    <id>http://sobiwi.peterwongpp.com/blog/javascript-selection-is-ready</id>
+    <content type="html"><![CDATA[<p><img class="left" src="/images/posts/highlight_verses_demo1.png" width="450" title="Highlight Verses Demo 1" alt="Highlight Verses Demo 1">
+<img class="left" src="/images/posts/highlight_verses_demo2.png" width="450" title="Highlight Verses Demo 2" alt="Highlight Verses Demo 2"></p>
+
+<p>Finally the Javascript Selection plugin is ready now.</p>
+
+<p>Now when you highlight verse on a chapter page (for example, highlighting the first two verses in Genesis chapter 1), you may see a black background on the highlighted words.</p>
+
+<p>To highlight, simply mouse down on verse, do not release your mouse button and move your mouse around, and finally release your mouse button.</p>
+
+<p>After releasing your mouse button, there should be a modal dialog pop up and your selection will be shown there. The next step will be let you add notes to the selection!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[updated the schedule]]></title>
