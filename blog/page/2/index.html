@@ -9,7 +9,7 @@
   <meta name="author" content="Sobiwi">
 
   
-  <meta name="description" content="Reading week and mid-term examinations are really time killer :) Finally we are back to the development now. Before the recent updates, I would like &hellip;">
+  <meta name="description" content="These few weeks doing less actual coding work. Instead, much more on thinking. After the recent meeting with Dr. Lau, the supervisor, new directions &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +80,50 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/changing-direction/">Changing Direction</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-03T00:00:00+08:00" pubdate data-updated="true">Dec 3<span>rd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>These few weeks doing less actual coding work. Instead, much more on thinking.</p>
+
+<p>After the recent meeting with Dr. Lau, the supervisor, new directions are coming up.</p>
+
+<p>Bible wiki, is the original main idea of the project. However, social, bible and wiki are just all tools. Why do we need such a bible wiki? Is the bible wiki useful?</p>
+
+<p>For example, I was doubting if notes could be added to the verses only, or to verses, chapters, books, testaments, or even different versions of bibles. The current implementation is the later one, which is able to add things to every thing in a bible! However, is that really useful? Now I am planning to change. Instead of having 30k records of verses, belonging to different chapters, belongings to different books, then testaments and finally one bible, using a compound key of [bible, book name, chapter, verser] should be better! It may be kind of denormalization, but this make the queries a lot simpler.</p>
+
+<p>It&#8217;s better to do more research than writing notes here :) See you later</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -491,6 +535,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/bootstrap-2-dot-0/">Bootstrap 2.0!</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/javascript-selection-is-ready/">Javascript Selection is Ready</a>
       </li>
     
@@ -504,10 +552,6 @@
     
       <li class="post">
         <a href="/blog/user-timeline/">user timeline</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/newly-updates/">Newly Updates</a>
       </li>
     
   </ul>
